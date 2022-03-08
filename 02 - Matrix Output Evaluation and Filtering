@@ -1,0 +1,96 @@
+"""Provides a scripting component.
+    Inputs:
+        x: The x script variable
+        y: The y script variable
+    Output:
+        a: The a output variable"""
+
+__author__ = "17018"
+__version__ = "2022.02.28"
+
+import rhinoscriptsyntax as rs
+import ghpythonlib.treehelpers as th
+from Grasshopper.Kernel.Data import GH_Path
+from Grasshopper import DataTree
+
+def LengthTest(y, base, table, run, cons, pos):
+    j = 9999999
+    while y > base:
+        i = len(table[base])
+        if 1 >= i:
+            j = j
+        elif j > i:
+            j = i
+            location = pos
+        else:
+            j = j
+        base = base + 1
+        pos = pos + 1
+    oi = location + (run * cons)
+    return oi, j
+
+
+table  = th.tree_to_list(x, None)
+oi_f = []
+cons = u
+cycle = (z / cons) - 1
+run = -1
+while cycle > run:
+    run = run + 1
+    base = (cons * run)
+    y = (cons * (run + 1))
+    pos = 0
+    oi, dist = LengthTest(y, base, table, run, cons, pos)
+    oi_f.append(table[oi])
+
+
+
+#def LengthTest(y, base, table, run, cons, position):
+#    # Set first j = extremely high number to no break script
+#    j = 9999999
+#    # Begin loop checking squence range [y+9:y]
+#    while y > base:
+#        position = 0
+#        # base is our (y) loop stop points
+#        #print(base)
+#        # get number of data entries at point in list
+#        i = len(table[base])
+#        # if i <= 1, it's invalid, test next point
+#        # elif j > i, i is shorter and should be saved
+#        # else j is the shortest and should be saved
+#        if 1 >= i:
+#            j = j
+#        elif j > i:
+#            j = i
+#            position = position
+#        else:
+#            j = j
+#        base = base + 1
+#        position = position + 1
+#    # debugger print
+#    ItemIndex = position + (run * cons)
+#    print(ItemIndex, "index location")
+#    print(j)
+#
+#def Data(y, z):
+#    # Table data = mast / complete list data
+#    table  = th.tree_to_list(x, None)
+#    # cons = unique components in sequence (this case, 9)
+#    cons = u
+#    # cycle = number of sequences in master list
+#    cycle = (z / cons) - 1
+#    # run = -1, adding +1 in following loop
+#    run = -1
+#    # While cycle(28) is > run(-1 soon-to-be 0), run function LengthTest
+#    while cycle > run:
+#        # set run = 0 with run + 1
+#        run = run + 1
+#        # set base (our seq eval start point) = cons(9) * run(0:28)
+#        base = (cons * run)
+#        # y = cons * (run(0) + 1) to equal 9 \
+#        # this will be our seq eval end point
+#        y = (cons * (run + 1))
+#        # call function LengthTest with these values and list
+#        position = 0
+#        LengthTest(y, base, table, run, cons, position)
+#Data(y, z)
